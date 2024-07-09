@@ -6,10 +6,11 @@ namespace BankingSystem
     class Program
     {
         static List<Account> accounts = new List<Account>();
+        static bool doRun = true;
 
         static void Main(string[] args)
         {
-            while (true)
+            while (doRun)
             {
                 Console.WriteLine("1. Add Account");
                 Console.WriteLine("2. Deposit Money");
@@ -34,6 +35,7 @@ namespace BankingSystem
                         DisplayAccountDetails();
                         break;
                     case "5":
+                        doRun = false;
                         break;
                     default:
                         Console.WriteLine("Invalid choice.");
