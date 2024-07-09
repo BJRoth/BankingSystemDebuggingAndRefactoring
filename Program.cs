@@ -50,7 +50,7 @@ namespace BankingSystem
             var id = Console.ReadLine();
 
             Console.WriteLine("Enter Account Holder Name:");
-            var name = Console.Read().ToString();
+            var name = Console.ReadLine();
 
             Account account = new Account { Id = id, Name = name, Balance = 0 };
             accounts.Add(account);
