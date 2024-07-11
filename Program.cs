@@ -51,10 +51,28 @@ namespace BankingSystem
         static void AddAccount()
         {
             Console.WriteLine("Enter Account ID:");
-            var id = Console.ReadLine();
+            string id = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                Console.WriteLine("Id cannot be left blank.");
+                return;
+            }
+
+            if (accounts.Any(a => a.Id == id))
+            {
+                Console.WriteLine("An account with that id already exists.");
+                return;
+            }
 
             Console.WriteLine("Enter Account Holder Name:");
-            var name = Console.ReadLine();
+            string name = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Name cannot be left blank.");
+                return;
+            }
 
             Account account = new Account { Id = id, Name = name, Balance = 0 };
             accounts.Add(account);
