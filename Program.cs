@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace BankingSystem
 {
@@ -60,23 +61,37 @@ namespace BankingSystem
 
         static void DepositMoney()
         {
-            Console.WriteLine("Enter Account ID:");
-            string id = Console.ReadLine();
+            string id;
+            double amount;
 
-            Console.WriteLine("Enter Amount to Deposit:");
-            double amount = double.Parse(Console.ReadLine());
-
-            foreach (var account in accounts)
+            if (accounts.Count < 1)
             {
-                if (account.Id == id)
+                Console.WriteLine("Please add an account before trying to make a deposit.");
+                return;
+            }
+
+            Console.WriteLine("Enter Account ID:");
+            id = Console.ReadLine();
+
+            if (accounts.Any(a => a.Id == id))
+            {
+                Console.WriteLine("Enter Amount to Deposit:");
+
+                if (double.TryParse(Console.ReadLine(), out amount))
                 {
-                    account.Balance += amount;
+                    accounts.First(a => a.Id == id).Balance += amount;
                     Console.WriteLine("Deposit successful.");
                     return;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid amount. Please provide a numerical value.");
+                }
             }
-
-            Console.WriteLine("Account not found.");
+            else
+            {
+                Console.WriteLine("Account not found.");
+            }
         }
 
         static void WithdrawMoney()
