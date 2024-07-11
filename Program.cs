@@ -14,9 +14,12 @@ namespace BankingSystem
             while (doRun)
             {
                 Console.WriteLine("1. Add Account");
-                Console.WriteLine("2. Deposit Money");
-                Console.WriteLine("3. Withdraw Money");
-                Console.WriteLine("4. Display Account Details");
+                if (accounts.Count > 0)
+                {
+                    Console.WriteLine("2. Deposit Money");
+                    Console.WriteLine("3. Withdraw Money");
+                    Console.WriteLine("4. Display Account Details");
+                }
                 Console.WriteLine("5. Exit");
 
                 string choice = Console.ReadLine();
@@ -63,12 +66,6 @@ namespace BankingSystem
         {
             string id;
             double amount;
-
-            if (accounts.Count < 1)
-            {
-                Console.WriteLine("Please add an account before trying to make a deposit.");
-                return;
-            }
 
             Console.WriteLine("Enter Account ID:");
             id = Console.ReadLine();
