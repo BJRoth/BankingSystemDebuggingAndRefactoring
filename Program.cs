@@ -93,19 +93,21 @@ namespace BankingSystem
 
         static void WithdrawMoney()
         {
+            string id;
+            double amount;
+
             Console.WriteLine("Enter Account ID:");
-            string id = Console.ReadLine();
+            id = Console.ReadLine();
 
-            Console.WriteLine("Enter Amount to Withdraw:");
-            double amount = double.Parse(Console.ReadLine());
-
-            foreach (var account in accounts)
+            if (accounts.Any(a => a.Id == id))
             {
-                if (account.Id == id)
+                Console.WriteLine("Enter Amount to Withdraw:");
+
+                if (double.TryParse(Console.ReadLine(), out amount))
                 {
-                    if (account.Balance >= amount)
+                    if (accounts.First(a => a.Id == id).Balance >= amount)
                     {
-                        account.Balance -= amount;
+                        accounts.First(a => a.Id == id).Balance -= amount;
                         Console.WriteLine("Withdrawal successful.");
                     }
                     else
@@ -114,9 +116,15 @@ namespace BankingSystem
                     }
                     return;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid amount. Please provide a numerical value.");
+                }
             }
-
-            Console.WriteLine("Account not found.");
+            else
+            {
+                Console.WriteLine("Account not found.");
+            }
         }
 
         static void DisplayAccountDetails()
