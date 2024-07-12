@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-
-namespace BankingSystem
+﻿namespace BankingSystem
 {
-    class Program
+    class BankingSystemMain
     {
-        static List<Account> accounts = new List<Account>();
+        static List<AccountModel> accounts = new List<AccountModel>();
         static bool doRun = true;
 
         static void Main(string[] args)
         {
+            string chosenAction;
+            string? selectedAccountId = null;
+
             while (doRun)
             {
                 Console.WriteLine("1. Add Account");
-                if (accounts.Count > 0)
+                if (selectedAccountId != null)
                 {
                     Console.WriteLine("2. Deposit Money");
                     Console.WriteLine("3. Withdraw Money");
@@ -22,9 +21,9 @@ namespace BankingSystem
                 }
                 Console.WriteLine("5. Exit");
 
-                string choice = Console.ReadLine();
+                chosenAction = Console.ReadLine();
 
-                switch (choice)
+                switch (chosenAction)
                 {
                     case "1":
                         AddAccount();
@@ -74,7 +73,7 @@ namespace BankingSystem
                 return;
             }
 
-            Account account = new Account { Id = id, Name = name, Balance = 0 };
+            AccountModel account = new AccountModel { Id = id, HolderName = name, Balance = 0 };
             accounts.Add(account);
 
             Console.WriteLine("Account added successfully.");
@@ -155,7 +154,7 @@ namespace BankingSystem
                 if (account.Id == id)
                 {
                     Console.WriteLine($"Account ID: {account.Id}");
-                    Console.WriteLine($"Account Holder: {account.Name}");
+                    Console.WriteLine($"Account Holder: {account.HolderName}");
                     Console.WriteLine($"Balance: {account.Balance}");
                     return;
                 }
@@ -163,12 +162,5 @@ namespace BankingSystem
 
             Console.WriteLine("Account not found.");
         }
-    }
-
-    class Account
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public double Balance { get; set; }
     }
 }
